@@ -1,26 +1,52 @@
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Fade } from "react-awesome-reveal";
 import { useDispatch, useSelector } from "react-redux";
 import { loggingOut } from "../redux/apiCalls";
-import { Link } from "react-router-dom";
+
+import { User } from "lucide-react";
+
 const Navbar = () => {
   const user = useSelector((state) => state.user?.currentUser);
   const dispatch = useDispatch();
   return (
     <div className="w-full p-2 h-20 flex bg-foreground text-muted items-center justify-between">
-      <a href="/"><h1 className="font-bold text-2xl">Bloggie</h1></a>
+      <Fade>
+        <a href="/"><h1 className="font-bold text-2xl">Bloggie</h1></a>
+      </Fade>
       {user ? (
         <div className="flex">
           <h2>
             Hello, {user.fname}
           </h2>
-          <Button variant="secondary"
-            className="ml-4"
-            onClick={() => {
-              loggingOut(dispatch);
-            }}
-          >
-            LogOut
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <User className="mr-2 ml-2" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>
+                <a href={`/profile/${user.iduser}`}>Profile</a>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                Your Blogs
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button onClick={() => {
+                  dispatch(loggingOut(dispatch))
+                }}>
+                  LogOut
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )
         : (

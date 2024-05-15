@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import { Textarea } from "../components/ui/textarea.jsx";
-import "quill/dist/quill.snow.css";
+import "react-quill/dist/quill.snow.css";
 import { Button } from "../components/ui/button.jsx";
 import { userRequest } from "../lib/requestMethod.js";
 import { useSelector } from "react-redux";
@@ -16,6 +16,7 @@ export default function NewBlog() {
   const [file, setFile] = useState(null);
   const ondescription = (value) => {
     setBlog(value);
+    console.log(value)
   };
 
   const handlePublish = async () => {
@@ -95,7 +96,7 @@ export default function NewBlog() {
           setTitle(e.target.value);
         }}
       />
-      <h2>Blog Thumbnail</h2>
+      <h2 className="font-bold text-lg p-2">Blog Thumbnail</h2>
       <input
         type="file"
         className="bg-white p-2"
@@ -111,7 +112,8 @@ export default function NewBlog() {
         onChange={ondescription}
         placeholder={"Write something awesome..."}
       />
-      <div dangerouslySetInnerHTML={{ __html: blog }}></div>
+      <div className="prose ql-editor" dangerouslySetInnerHTML={{ __html: blog }}></div>
+
       <h2 className="font-bold">
         Blog Categories
       </h2>
