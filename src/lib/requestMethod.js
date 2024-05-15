@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/";
+const BASE_URL = "https://blog-api-two-tan.vercel.app/";
 
 const storage = JSON.parse(localStorage.getItem("persist:root"));
 const user = storage && storage.user;
